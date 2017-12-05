@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import com.sngpay.exception.ErrorType;
+import com.sngpay.exception.MoneyTransferException;
+import com.sngpay.exception.WrongPINException;
 import com.sngpay.state.State;
 import com.sngpay.state.StateGenerator;
 import com.sngpay.transit.SendMoneyTransit;
@@ -23,6 +26,7 @@ public class SendMoneyStateLogic {
 		String nextState = null;
 		State currentState = null;
 		MtUssdReq moUssdReq = new MtUssdReq();
+		ErrorType errorType = ErrorType.SUCCESS;
 		
 		if(keySet.size() >=1 )
 			nextState = inputAndNextStateMap.get(arg0.getMessage());
@@ -38,6 +42,7 @@ public class SendMoneyStateLogic {
 			if(SessionManager.getSession().get(arg0.getSourceAddress()) == null){
 				SendMoneyTransit moneyTransit = new SendMoneyTransit();
 				moneyTransit.setMobileNumber(arg0.getSourceAddress());
+				moneyTransit.setLastState(currentState);
 				SessionManager.addSession(moneyTransit.getMobileNumber(), moneyTransit);
 			}
 			else{
@@ -47,10 +52,68 @@ public class SendMoneyStateLogic {
 					Method method = moneyTransit.getClass().getMethod(lastState.getOperaionToHold(), String.class);
 					method.invoke(moneyTransit, arg0.getMessage());
 				}
+				moneyTransit.setLastState(currentState);
 				SessionManager.addSession(moneyTransit.getMobileNumber(), moneyTransit);
 			}
+			
+			if(lastState.isCheckLogicRequired()) {
+				Method logicMethod = SendMoneyStateLogic.class.getMethod(lastState.getCheckLogicOf(), MoUssdReq.class);
+				errorType = (ErrorType) logicMethod.invoke(logicMethod, arg0);
+			}
 				
-			} catch (Exception e) {
+			}catch (WrongPINException e) {
+				if(e.getErrorType() == ErrorType.REPEATE_PIN_MISMATCH) {
+					nextState = SessionManager.getErrorRulesMap().get(nextState).get(e.getErrorType());
+					try {
+						State toBeState = StateGenerator.createStateInstance(nextState);
+						moUssdReq.setMessage(toBeState.getStateMenu());
+						SendMoneyTransit moneyTransit = SessionManager.getSession().get(arg0.getSourceAddress());
+						moneyTransit.setLastState(currentState);
+						SessionManager.addSession(moneyTransit.getMobileNumber(), moneyTransit);
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
+				}
+				if(e.getErrorType() == ErrorType.INVALID_PIN) {
+					
+					nextState = SessionManager.getErrorRulesMap().get(nextState).get(e.getErrorType());
+					try {
+						State toBeState = StateGenerator.createStateInstance(nextState);
+						moUssdReq.setMessage(toBeState.getStateMenu());
+						SendMoneyTransit moneyTransit = SessionManager.getSession().get(arg0.getSourceAddress());
+						moneyTransit.setLastState(currentState);
+						SessionManager.addSession(moneyTransit.getMobileNumber(), moneyTransit);
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
+				}	
+			} 
+		catch (MoneyTransferException e) {
+			
+			if(e.getErrorType() == ErrorType.MONEY_TRANSFER_FAIL) {
+				
+				nextState = SessionManager.getErrorRulesMap().get(nextState).get(e.getErrorType());
+				try {
+					State toBeState = StateGenerator.createStateInstance(nextState);
+					moUssdReq.setMessage(toBeState.getStateMenu());
+					SendMoneyTransit moneyTransit = SessionManager.getSession().get(arg0.getSourceAddress());
+					moneyTransit.setLastState(currentState);
+					SessionManager.addSession(moneyTransit.getMobileNumber(), moneyTransit);
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+				
+			}
+			
+			
+		}
+		catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 		}
@@ -59,4 +122,24 @@ public class SendMoneyStateLogic {
 		return moUssdReq;
 	}
 	
+	@SuppressWarnings("unused")
+	private static ErrorType checkPIN(MoUssdReq arg0) throws WrongPINException{
+		
+		if(SessionManager.getSession().get(arg0.getSourceAddress()).getPrivatePin1().equalsIgnoreCase(SessionManager.getSession().get(arg0.getSourceAddress()).getPrivatePinRepeate()) == Boolean.FALSE) {
+			
+			throw  new WrongPINException("Confirmed PIN mismatching", ErrorType.REPEATE_PIN_MISMATCH);
+		}
+		else {
+			//DB call
+		}
+		
+		return ErrorType.SUCCESS;
+	}
+	
+	@SuppressWarnings("unused")
+	private static ErrorType moneyTransfer(MoUssdReq arg0) throws MoneyTransferException {
+		// money transfer call
+		
+		return ErrorType.SUCCESS;
+	}
 }
