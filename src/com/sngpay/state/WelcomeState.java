@@ -51,4 +51,16 @@ public class WelcomeState implements State{
 		this.stateType = stateType;
 	}
 
+	@Override
+	public boolean isCheckLogicRequired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getCheckLogicOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

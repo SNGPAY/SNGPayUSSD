@@ -22,7 +22,7 @@ public class SendMoneyState2 implements State{
 	
 	@Override
 	public String getStateMenu() {
-		return "Enter Account Number: \n";
+		return "1. Enter Account Number: \n00. Back ";
 	}
 
 	@Override
@@ -50,6 +50,18 @@ public class SendMoneyState2 implements State{
 
 	public void setPreviousSate(State previousSate) {
 		this.previousSate = previousSate;
+	}
+
+	@Override
+	public boolean isCheckLogicRequired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getCheckLogicOf() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

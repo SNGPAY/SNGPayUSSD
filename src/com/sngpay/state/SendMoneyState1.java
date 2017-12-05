@@ -60,6 +60,20 @@ public class SendMoneyState1 implements State{
 		// TODO Auto-generated method stub
 		return "setSendToProvider";
 	}
+
+
+	@Override
+	public boolean isCheckLogicRequired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public String getCheckLogicOf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
