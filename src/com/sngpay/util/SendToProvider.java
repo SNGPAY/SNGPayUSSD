@@ -2,11 +2,12 @@ package com.sngpay.util;
 
 public enum SendToProvider {
 
-	TOGO_PESA("Togo Pesa",1),
-	AIRTEL("AirTel",2),
-	M_PESA("M-Pesa",3),
-	EZY_PESA("Ezy Pesa",4),
-	HALO_PESA("Halo Pesa",5);
+	SNGPAY("SNGPay",1),
+	TIGO_PESA("Tigo Pesa",2),
+	AIRTEL("AirTel",3),
+	M_PESA("M-Pesa",4),
+	EZY_PESA("Ezy Pesa",5),
+	HALO_PESA("Halo Pesa",6);
 	
 	private String value;
 	private int flags;
@@ -27,13 +28,15 @@ public enum SendToProvider {
 	public static SendToProvider getEnum(String arg){
 		
 		if(arg.contentEquals("1"))
-			return SendToProvider.TOGO_PESA;
+			return SendToProvider.SNGPAY;
 	    if(arg.contentEquals("2"))
-	    	return SendToProvider.AIRTEL;
+	    	return SendToProvider.TIGO_PESA;
 	    if(arg.contentEquals("3"))
-	    	return SendToProvider.M_PESA;
+	    	return SendToProvider.AIRTEL;
 	    if(arg.contentEquals("4"))
-	    	return SendToProvider.EZY_PESA;
+	    	return SendToProvider.M_PESA;
+	    if(arg.contentEquals("5"))
+	    	return EZY_PESA;
 	    else return SendToProvider.HALO_PESA;
 	}
 }
