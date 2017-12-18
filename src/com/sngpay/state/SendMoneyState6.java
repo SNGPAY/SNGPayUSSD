@@ -1,39 +1,37 @@
 package com.sngpay.state;
 
-public class SendMoneyState5 implements State{
+public class SendMoneyState6 implements State{
 
 	private int stateNumber;
 
 	private String stateType;
 	
 	private State previousSate;
-	
-	public SendMoneyState5(String argStateType,int argStateNo) {
+
+	public SendMoneyState6(String argStateType,int argStateNo) {
 		
-		setStateType(argStateType);
+		stateType = argStateType;
 		setStateNumber(argStateNo);
 		
 	}
 	
-	public SendMoneyState5(String argStateType){
-		setStateType(argStateType);
+	public SendMoneyState6(String argStateType){
+		stateType = argStateType;
 	}
 	
 	
 	@Override
 	public String getStateType() {
-		// TODO Auto-generated method stub
 		return stateType;
 	}
 
 	@Override
 	public String getOperaionToHold() {
-		// TODO Auto-generated method stub
-		return "setAmountToSend";
+		return "setSenderNumber";
 	}
 
-	public void setStateType(String stateType) {
-		this.stateType = stateType;
+	public void setStateNumber(int stateNumber) {
+		this.stateNumber = stateNumber;
 	}
 
 	public State getPreviousSate() {
@@ -44,20 +42,16 @@ public class SendMoneyState5 implements State{
 		this.previousSate = previousSate;
 	}
 
-	public void setStateNumber(int stateNumber) {
-		this.stateNumber = stateNumber;
-	}
-
 	@Override
 	public boolean isCheckLogicRequired() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public String getCheckLogicOf() {
 		// TODO Auto-generated method stub
-		return "moneyTransfer";
+		return null;
 	}
 
 	@Override

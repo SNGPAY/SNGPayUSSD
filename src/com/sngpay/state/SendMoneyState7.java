@@ -1,24 +1,23 @@
 package com.sngpay.state;
 
-public class SendMoneyState5 implements State{
+public class SendMoneyState7 implements State{
 
 	private int stateNumber;
-
+	
 	private String stateType;
 	
 	private State previousSate;
 	
-	public SendMoneyState5(String argStateType,int argStateNo) {
+	public SendMoneyState7(String argStateType,int argStateNo) {
 		
 		setStateType(argStateType);
 		setStateNumber(argStateNo);
 		
 	}
 	
-	public SendMoneyState5(String argStateType){
+	public SendMoneyState7(String argStateType){
 		setStateType(argStateType);
 	}
-	
 	
 	@Override
 	public String getStateType() {
@@ -65,5 +64,6 @@ public class SendMoneyState5 implements State{
 		// TODO Auto-generated method stub
 		return true;
 	}
+
 
 }

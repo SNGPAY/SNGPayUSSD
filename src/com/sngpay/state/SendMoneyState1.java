@@ -32,7 +32,7 @@ public class SendMoneyState1 implements State{
 	
 	public String getStateMenu(){
 		
-		return "1. TogoPesa \n 2. AirTel \n 3. M-Pesa \n 4.EzyPesa \n 5. HaloPesa";
+		return "1. TogoPesa \n 2. AirTel \n 3. M-Pesa \n 4.EzyPesa \n 5. HaloPesa \n * Back";
 		
 	}
 	
@@ -73,6 +73,13 @@ public class SendMoneyState1 implements State{
 	public String getCheckLogicOf() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public boolean isUserInputTypeValue() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 	

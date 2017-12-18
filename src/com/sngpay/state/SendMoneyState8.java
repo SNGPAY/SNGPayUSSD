@@ -1,24 +1,23 @@
 package com.sngpay.state;
 
-public class SendMoneyState5 implements State{
+public class SendMoneyState8 implements State{
 
 	private int stateNumber;
-
+	
 	private String stateType;
 	
 	private State previousSate;
 	
-	public SendMoneyState5(String argStateType,int argStateNo) {
+	public SendMoneyState8(String argStateType,int argStateNo) {
 		
 		setStateType(argStateType);
 		setStateNumber(argStateNo);
 		
 	}
 	
-	public SendMoneyState5(String argStateType){
+	public SendMoneyState8(String argStateType){
 		setStateType(argStateType);
 	}
-	
 	
 	@Override
 	public String getStateType() {

@@ -21,16 +21,6 @@ public class SendMoneyState2 implements State{
 	
 	
 	@Override
-	public String getStateMenu() {
-		return "1. Enter Account Number: \n00. Back ";
-	}
-
-	@Override
-	public int getStateNumber() {
-		return 2;
-	}
-
-	@Override
 	public String getStateType() {
 		return stateType;
 	}
@@ -62,6 +52,12 @@ public class SendMoneyState2 implements State{
 	public String getCheckLogicOf() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean isUserInputTypeValue() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

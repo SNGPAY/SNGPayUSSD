@@ -1,6 +1,6 @@
 package com.sngpay.state;
 
-public class SendMoneyState5 implements State{
+public class RegisterState1 implements State{
 
 	private int stateNumber;
 
@@ -8,17 +8,16 @@ public class SendMoneyState5 implements State{
 	
 	private State previousSate;
 	
-	public SendMoneyState5(String argStateType,int argStateNo) {
+	public RegisterState1(String argStateType,int argStateNo) {
 		
 		setStateType(argStateType);
 		setStateNumber(argStateNo);
 		
 	}
 	
-	public SendMoneyState5(String argStateType){
+	public RegisterState1(String argStateType){
 		setStateType(argStateType);
 	}
-	
 	
 	@Override
 	public String getStateType() {
@@ -29,7 +28,29 @@ public class SendMoneyState5 implements State{
 	@Override
 	public String getOperaionToHold() {
 		// TODO Auto-generated method stub
-		return "setAmountToSend";
+		return null;
+	}
+
+	@Override
+	public boolean isCheckLogicRequired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public String getCheckLogicOf() {
+		// TODO Auto-generated method stub
+		return "checkTemporaryPIN";
+	}
+
+	@Override
+	public boolean isUserInputTypeValue() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	public void setStateNumber(int stateNumber) {
+		this.stateNumber = stateNumber;
 	}
 
 	public void setStateType(String stateType) {
@@ -44,26 +65,5 @@ public class SendMoneyState5 implements State{
 		this.previousSate = previousSate;
 	}
 
-	public void setStateNumber(int stateNumber) {
-		this.stateNumber = stateNumber;
-	}
-
-	@Override
-	public boolean isCheckLogicRequired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public String getCheckLogicOf() {
-		// TODO Auto-generated method stub
-		return "moneyTransfer";
-	}
-
-	@Override
-	public boolean isUserInputTypeValue() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
+	
 }

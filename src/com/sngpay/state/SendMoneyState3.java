@@ -20,27 +20,15 @@ public class SendMoneyState3 implements State{
 	}
 	
 	@Override
-	public String getStateMenu() {
-		// TODO Auto-generated method stub
-		return "1. Enter your PIN: \n 00. Back";
-	}
-
-	@Override
-	public int getStateNumber() {
-		// TODO Auto-generated method stub
-		return 3;
-	}
-
-	@Override
 	public String getStateType() {
 		// TODO Auto-generated method stub
-		return null;
+		return stateType;
 	}
 
 	@Override
 	public String getOperaionToHold() {
 		// TODO Auto-generated method stub
-		return null;
+		return "setPrivatePin1";
 	}
 
 	public void setStateNumber(int stateNumber) {
@@ -69,6 +57,12 @@ public class SendMoneyState3 implements State{
 	public String getCheckLogicOf() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean isUserInputTypeValue() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }
